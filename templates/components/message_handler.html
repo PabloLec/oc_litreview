@@ -1,0 +1,42 @@
+{% if messages %} 
+{% for message in messages %}
+  {% if "error" in message.tags %}
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+      <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    <div>{{ message }}</div>
+  </div>
+
+  {% else %}
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="" class="rounded me-2" alt="" />
+        <strong class="me-auto">Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">{{ message }}</div>
+    </div>
+  </div>
+{% endif %} {% endfor %} 
+
+<script>
+$("#button-login").click(function () {
+  $("#modal-login").modal("show");
+});
+$("#button-signup").click(function () {
+  $("#modal-signup").modal("show");
+});
+var toastElList = [].slice.call(document.querySelectorAll(".toast"));
+var toastList = toastElList.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl);
+});
+
+for (const x of toastList) {
+  x.show();
+}
+</script>
+
+{% endif %}
+

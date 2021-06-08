@@ -1,0 +1,27 @@
+<div class="card feed-item">
+  <div class="card-header">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h4 class="card-title book-title">
+            <span class="badge rounded-pill bg-success">Revue</span> {{ post.ticket.title }}
+          </h4>
+          <h6 class="card-subtitle mb-2">Par {{ post.user }}</h6>
+          <h6 class="text-muted card-subtitle mb-2 fst-italic">{{ post.time_created|date:"d/m/Y" }}</h6>
+          <br />
+          <h5 class="card-subtitle mb-2">{{ post.headline }}</h5>
+        </div>
+        <div class="col-md-auto">
+          <div class="bookcover img-thumbnail rounded mx-auto d-block">
+            <img src="{{ post.ticket.image }}" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <p class="card-text">{{ post.body }}</p>
+    <a class="card-link" href="#">Link</a><a class="card-link" href="#">Link</a>
+  </div>
+</div>

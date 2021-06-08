@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LIT Review</title>
+    {% include "static_load/common_head.html" %}
+    <link rel="stylesheet" href="{% static 'assets/css/subscriptions.css' %}" />
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    {% include "components/navbar_user.html" %}
+    {% include "components/message_handler.html" %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="user-searchbar">
+            <input type="text" id="search-user" />
+            <button type="button" id="subscribe" data-token='{% csrf_token %}' class="btn btn-info btn-sm">S'abonner</button>
+          </div>
+
+          {% for sub in subs %} {% if forloop.counter0|divisibleby:4 %}
+        </div>
+        <div class="row">{% endif %}{% include "components/user_card.html" %}{% endfor %}</div>
+      </div>
+    </div>
+    <div id="toast-list"></div>
+    <script>
+      const availableUsers = [
+        {% for user in users %}
+        "{{user.username}}",
+        {% endfor %}
+        ];
+        $( function() {
+            $( "#search-user" ).autocomplete({
+                source: availableUsers
+            });
+        });
+    </script>
+    <script src="{% static 'assets/js/usersearch.js' %}"></script>
+  </body>
+</html>

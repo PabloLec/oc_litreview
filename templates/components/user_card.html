@@ -1,0 +1,31 @@
+<div class="col-md-3">
+  <div class="card">
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="text-center card-box">
+              <div class="member-card pt-2 pb-2">
+                <div class="thumb-lg member-thumb mx-auto">
+                  <img src="{{ sub.profile.avatar }}" class="rounded-circle img-thumbnail" alt="profile-image" />
+                </div>
+                <div class="">
+                  <h5>{{ sub.username }}</h5>
+                  <span class="text-muted profile-info">
+                    <i class="icon ion-calendar"></i> {{ sub.date_joined|date:"d/m/Y" }}
+                  </span>
+                  {% if sub.profile.location %}
+                  <p class="text-muted profile-info"><i class="icon ion-location"></i> {{ sub.profile.location }}</p>
+                  {% endif %}
+                </div>
+                <div class="unsubscribe">
+                  <button type="button" data-user="{{ sub.username }}" data-token='{% csrf_token %}' class="btn btn-warning btn-unsubscribe btn-sm">Se désabonner</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

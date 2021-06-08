@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LIT Review</title>
+    {% include "static_load/common_head.html" %}
+    <link rel="stylesheet" href="{% static 'assets/css/landing_display.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/login_form.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/registration_form.css' %}" />
+  </head>
+
+  <body>
+    {% include "components/navbar_visitor.html" %}
+    {% include "components/message_handler.html" %}
+
+    <section class="highlight-clean">
+      <div class="container">
+        <div class="intro">
+          <h2 class="text-center">Lorem Ipsum</h2>
+          <p class="text-center">
+            Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet
+            vitae.
+          </p>
+        </div>
+        <div class="buttons">
+          <a class="btn btn-primary" role="button" href="#">Primary</a
+          ><button class="btn btn-light" type="button">Secondary</button>
+        </div>
+      </div>
+    </section>
+
+    {% include "components/index_modals.html" %}
+    <script src="{% static 'assets/js/index.js' %}"></script>
+  </body>
+</html>
