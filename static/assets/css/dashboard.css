@@ -1,0 +1,13 @@
+.feed-item {
+  margin-top: 2rem;
+}
+
+.bookcover img {
+  max-width: 10rem; /* you can use % */
+  height: auto;
+}
+
+.book-title {
+  padding-top: 1rem;
+}
+
