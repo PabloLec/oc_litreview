@@ -1,15 +1,15 @@
 from django.conf import settings
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.http import JsonResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db.models import CharField, Value
 from django.contrib.auth.models import User
-
 from website.feed_generator import *
 from website.subscriptions_handler import *
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -19,7 +19,7 @@ def index(request):
 
 def login_process(request):
     if request.method != "POST":
-        return render(request, "index.html")
+        return redirect('index')
 
     username = request.POST["username"]
     password = request.POST["password"]
@@ -28,26 +28,29 @@ def login_process(request):
 
     if user is not None:
         login(request, user)
-        return dashboard(request)
+        return redirect('dashboard')
     else:
         messages.error(request, "Nom d'utilisateur et/ou mot de passe invalide.")
-        return render(request, "index.html")
+        return redirect('index')
 
+def logout_process(request):
+    logout(request)
+    return redirect('index')
 
+@login_required(login_url='/')
 def dashboard(request):
-
     feed = generate_feed(request.user)
 
     return render(request, "dashboard.html", context={"feed": feed})
 
-
+@login_required(login_url='/')
 def posts(request):
 
     posts = generate_user_posts(request.user)
 
     return render(request, "posts.html", context={"posts": posts})
 
-
+@login_required(login_url='/')
 def subscriptions(request):
 
     if request.method == "POST":
