@@ -98,7 +98,7 @@ def ask_review(request):
             return redirect("dashboard")
 
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
-    return redirect("index")
+    return redirect("dashboard")
 
 
 @login_required(login_url="/")
@@ -120,7 +120,7 @@ def create_review(request):
             return redirect("dashboard")
 
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
-    return redirect("index")
+    return redirect("dashboard")
 
 
 @login_required(login_url="/")
@@ -136,7 +136,7 @@ def reply_review(request):
             messages.info(request, "Votre critique vient d'être publiée!")
             return redirect("dashboard")
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
-    return redirect("index")
+    return redirect("dashboard")
 
 
 @login_required(login_url="/")
