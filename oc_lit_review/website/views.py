@@ -18,7 +18,6 @@ from django.http import HttpResponse
 
 def index(request):
     if request.user.is_authenticated:
-        print(request.user)
         return redirect("dashboard")
 
     register_form = RegisterForm()
@@ -90,13 +89,16 @@ def dashboard(request):
 @login_required(login_url="/")
 def ask_review(request):
     if request.method == "POST":
-        form = AskReviewForm(request.POST, request.FILES)
+        form = AskReviewForm(request.POST, request.FILES, prefix="ask")
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.save()
             messages.info(request, "Votre ticket vient d'être publié!")
             return redirect("dashboard")
+
+    messages.error(request, "Une erreur s'est produite lors de votre publication.")
+    return redirect("index")
 
 
 @login_required(login_url="/")
@@ -116,6 +118,25 @@ def create_review(request):
 
             messages.info(request, "Votre critique vient d'être publiée!")
             return redirect("dashboard")
+
+    messages.error(request, "Une erreur s'est produite lors de votre publication.")
+    return redirect("index")
+
+
+@login_required(login_url="/")
+def reply_review(request):
+    if request.method == "POST":
+        form = CreateReviewForm(request.POST, prefix="create")
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.ticket = Ticket.objects.get(pk=request.POST["ticket-id"])
+            review.save()
+
+            messages.info(request, "Votre critique vient d'être publiée!")
+            return redirect("dashboard")
+    messages.error(request, "Une erreur s'est produite lors de votre publication.")
+    return redirect("index")
 
 
 @login_required(login_url="/")

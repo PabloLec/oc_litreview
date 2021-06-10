@@ -11,6 +11,7 @@ urlpatterns = [
     path("dashboard", views.dashboard, name="dashboard"),
     path("ask_review", views.ask_review, name="ask_review"),
     path("create_review", views.create_review, name="create_review"),
+    path("reply_review", views.reply_review, name="reply_review"),
     path("posts", views.posts, name="posts"),
     path("sub", views.subscriptions, name="subscriptions"),
 ]

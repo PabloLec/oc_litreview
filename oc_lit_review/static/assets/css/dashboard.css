@@ -24,3 +24,12 @@
 .form-textfield {
   width: 100%;
 }
+
+.btn-reply {
+  border-radius: 2em;
+}
+
+.reply-button-container {
+  width: 100%;
+  text-align: center;
+}

@@ -16,6 +16,10 @@
         </div>
       </div>
     </div>
-    <a class="card-link" href="#">Link</a><a class="card-link" href="#">Link</a>
+    {% if user != post.user %}
+    <div class="reply-button-container">
+        <button type="button" data-ticket="{{ post.id }}" class="btn btn-info btn-reply btn-sm">Répondre</button>
+    </div>
+    {% endif %}
   </div>
 </div>
