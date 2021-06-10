@@ -11,3 +11,16 @@
   padding-top: 1rem;
 }
 
+.review-buttons-container {
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.review-button {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.form-textfield {
+  width: 100%;
+}

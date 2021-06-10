@@ -76,8 +76,9 @@ def logout_process(request):
 @login_required(login_url="/")
 def dashboard(request):
     feed = generate_feed(request.user)
+    ask_review_form = AskReviewForm()
 
-    return render(request, "dashboard.html", context={"feed": feed})
+    return render(request, "dashboard.html", context={"feed": feed, "ask_review_form": ask_review_form})
 
 
 @login_required(login_url="/")

@@ -3,7 +3,6 @@
     <div class="modal-content">
       <form method="post" action="/login">
         {% csrf_token %}
-        <h2 class="visually-hidden">Login Form</h2>
         <div class="illustration">
           <i class="icon ion-ios-navigate"></i>
         </div>
@@ -26,7 +25,7 @@
     <div class="modal-content">
       <form method="post" id="register" action="/signup">
         {% csrf_token %}
-        <h2 class="text-center"><strong>Créer&nbsp;</strong>un compte.</h2>
+        <h2 class="text-center"><strong>Créer</strong> un compte.</h2>
         {% for field in register_form %}
         <div class="mb-3">
           {{ field }}
@@ -36,9 +35,8 @@
         {% endfor %}
         {% endfor %}
         <div class="mb-3">
-          <button class="btn btn-primary d-block w-100" type="submit">Sign Up</button>
+          <button class="btn btn-primary d-block w-100" type="submit">Valider</button>
         </div>
-        <a class="already" href="#">You already have an account? Login here.</a>
       </form>
     </div>
   </div>

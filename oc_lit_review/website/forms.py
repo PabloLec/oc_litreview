@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from django.forms import ModelForm
+from website.models import Ticket, Review
 
 
 class RegisterForm(UserCreationForm):
@@ -38,3 +40,14 @@ class RegisterForm(UserCreationForm):
         if cd.get("password1") != cd.get("password2"):
             self.add_error("password2", "passwords do not match !")
         return cd
+
+
+class AskReviewForm(ModelForm):
+    class Meta:
+        model = Ticket
+        labels = {"title": "Titre", "description": "Description", "image": "Couverture"}
+        widgets = {
+            "title": forms.TextInput(attrs={"class": "form-textfield"}),
+            "description": forms.Textarea(attrs={"class": "form-textfield"}),
+        }
+        fields = ["title", "description", "image"]
