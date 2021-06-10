@@ -51,3 +51,14 @@ class AskReviewForm(ModelForm):
             "description": forms.Textarea(attrs={"class": "form-textfield"}),
         }
         fields = ["title", "description", "image"]
+
+
+class CreateReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        labels = {"headline": "Résumé", "rating": "Note", "body": "Contenu"}
+        widgets = {
+            "headline": forms.TextInput(attrs={"class": "form-textfield"}),
+            "body": forms.Textarea(attrs={"class": "form-textfield"}),
+        }
+        fields = ["headline", "rating", "body"]

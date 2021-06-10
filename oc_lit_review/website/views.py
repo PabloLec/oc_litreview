@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from website.feed_generator import *
 from website.subscriptions_handler import *
 from website.forms import *
+from website.models import *
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -76,9 +77,45 @@ def logout_process(request):
 @login_required(login_url="/")
 def dashboard(request):
     feed = generate_feed(request.user)
-    ask_review_form = AskReviewForm()
+    ask_review_form = AskReviewForm(prefix="ask")
+    create_review_form = CreateReviewForm(prefix="create")
 
-    return render(request, "dashboard.html", context={"feed": feed, "ask_review_form": ask_review_form})
+    return render(
+        request,
+        "dashboard.html",
+        context={"feed": feed, "ask_review_form": ask_review_form, "create_review_form": create_review_form},
+    )
+
+
+@login_required(login_url="/")
+def ask_review(request):
+    if request.method == "POST":
+        form = AskReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            messages.info(request, "Votre ticket vient d'être publié!")
+            return redirect("dashboard")
+
+
+@login_required(login_url="/")
+def create_review(request):
+    if request.method == "POST":
+        form_ask = AskReviewForm(request.POST, request.FILES, prefix="ask")
+        form_create = CreateReviewForm(request.POST, prefix="create")
+        if form_ask.is_valid() and form_create.is_valid():
+            ticket = form_ask.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+
+            review = form_create.save(commit=False)
+            review.user = request.user
+            review.ticket = Ticket.objects.get(pk=ticket.pk)
+            review.save()
+
+            messages.info(request, "Votre critique vient d'être publiée!")
+            return redirect("dashboard")
 
 
 @login_required(login_url="/")
