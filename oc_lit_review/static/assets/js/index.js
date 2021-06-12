@@ -13,6 +13,8 @@ for (const x of toastList) {
   x.show();
 }
 
+var CSRFToken = document.getElementsByName("csrfmiddlewaretoken")[0].value
+
 $("#register").validate({
   rules: {
     username: {
@@ -24,6 +26,7 @@ $("#register").validate({
           username: function () {
             return $("#username").val();
           },
+          csrfmiddlewaretoken: CSRFToken,
         },
       },
     },

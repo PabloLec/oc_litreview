@@ -33,8 +33,20 @@ def generate_feed(user):
         elements += get_tickets(follow.followed_user)
         elements += get_reviews(follow.followed_user)
 
+    elements += generate_user_posts(user)
+
+    for ticket in get_tickets(user):
+        elements += get_ticket_responses(ticket)
+
     return sorted(elements, key=lambda x: x.time_created, reverse=True)
 
+def get_ticket_responses(ticket):
+    reviews = Review.objects.filter(ticket=ticket)
+
+    for review in reviews:
+        review.type = "review"
+
+    return list(reviews)
 
 def generate_user_posts(user):
     elements = get_tickets(user)

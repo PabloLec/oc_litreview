@@ -41,9 +41,9 @@ def signup(request):
     return redirect("index")
 
 
-@csrf_exempt
 def is_username_available(request):
     if request.method == "POST":
+        print(request.POST)
         all_usernames = [x.username.lower() for x in User.objects.all()]
         if request.POST["username"].lower() in all_usernames:
             return HttpResponse("false")
