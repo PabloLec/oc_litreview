@@ -1,14 +1,14 @@
-.highlight-clean {
+.landing-page-introduction {
   color: #313437;
   background-color: #fff;
   padding: 50px 0;
 }
 
-.highlight-clean p {
+.landing-page-introduction p {
   color: #7d8285;
 }
 
-.highlight-clean h2 {
+.landing-page-introduction h2 {
   font-weight: bold;
   margin-bottom: 25px;
   line-height: 1.5;
@@ -17,17 +17,17 @@
   color: inherit;
 }
 
-.highlight-clean .intro {
+.landing-page-introduction .intro {
   font-size: 16px;
   max-width: 500px;
   margin: 0 auto 25px;
 }
 
-.highlight-clean .buttons {
+.landing-page-introduction .buttons {
   text-align: center;
 }
 
-.highlight-clean .buttons .btn {
+.landing-page-introduction .buttons .btn {
   padding: 16px 32px;
   margin: 6px;
   border: none;
@@ -44,16 +44,32 @@
   background-color: #ddd;
 }
 
-.highlight-clean .buttons .btn:hover {
+.landing-page-introduction .buttons .btn:hover {
   opacity: 1;
 }
 
-.highlight-clean .buttons .btn:active {
+.landing-page-introduction .buttons .btn:active {
   transform: translateY(1px);
 }
 
-.highlight-clean .buttons .btn-primary {
+.landing-page-introduction .buttons .btn-primary {
   background-color: #055ada;
   color: #fff;
 }
 
+#button-signup,
+#button-login {
+  background: #212529
+  color: #fff;
+  border-style: solid;
+  border-color: #fff;;
+  border-width: 1px;
+  border-radius: 20px;
+  margin-right: 1rem
+}
+
+#button-signup:hover,
+#button-login:hover {
+  background: #932432;
+  transform: translateY(1px);
+}

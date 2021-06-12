@@ -10,10 +10,10 @@
 
   {% else %}
   <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <img src="" class="rounded me-2" alt="" />
-        <strong class="me-auto">Notification</strong>
+        <strong class="me-auto text-dark">Notification</strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">{{ message }}</div>
@@ -22,12 +22,6 @@
 {% endif %} {% endfor %} 
 
 <script>
-$("#button-login").click(function () {
-  $("#modal-login").modal("show");
-});
-$("#button-signup").click(function () {
-  $("#modal-signup").modal("show");
-});
 var toastElList = [].slice.call(document.querySelectorAll(".toast"));
 var toastList = toastElList.map(function (toastEl) {
   return new bootstrap.Toast(toastEl);

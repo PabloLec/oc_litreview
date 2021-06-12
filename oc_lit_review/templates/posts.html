@@ -5,7 +5,7 @@
   <head>
     <title>LIT Review</title>
     {% include "static_load/common_head.html" %}
-    <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/posts.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/review_forms.css' %}" />
   </head>
 
@@ -13,7 +13,7 @@
     {% include "components/navbar_user.html" %}
     {% include "components/message_handler.html" %}
 
-    <div class="container">
+    <div class="main-container container">
       <div class="row">
         <div class="col-md-12">
           {% for post in posts %} {% if post.type == 'review' %} {% include "components/card_review.html" %} {% else %}

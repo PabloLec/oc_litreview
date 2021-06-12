@@ -5,7 +5,7 @@
   <head>
     <title>LIT Review</title>
     {% include "static_load/common_head.html" %}
-    <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/posts.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/review_forms.css' %}" />
   </head>
 
@@ -13,11 +13,11 @@
     {% include "components/navbar_user.html" %}
     {% include "components/message_handler.html" %}
 
-    <div class="container">
+    <div class="main-container container">
         <div class="row">
             <div class="col-md-12 review-buttons-container">
-                <button type="button" class="btn btn-info review-button" id="button-ask">Demander une critique</button>
-                <button type="button" class="btn btn-info review-button" id="button-create">Créer une critique</button>
+                <button type="button" class="btn review-button text-white" id="button-ask">Demander une critique</button>
+                <button type="button" class="btn review-button text-white" id="button-create">Créer une critique</button>
             </div>
         </div>
       <div class="row">

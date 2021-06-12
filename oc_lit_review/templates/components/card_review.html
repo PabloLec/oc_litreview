@@ -1,10 +1,10 @@
-<div class="card feed-item">
+<div class="card bg-light  feed-item">
   <div class="card-header">
     <div class="container">
       <div class="row">
         <div class="col">
           <h4 class="card-title book-title">
-            <span class="badge rounded-pill bg-success">Revue</span> {{ post.ticket.title }}
+            <i class="fas fa-pen review-icon"></i> {{ post.ticket.title }}
           </h4>
           <h6 class="card-subtitle mb-2">Par {{ post.user }}</h6>
           <h6 class="text-muted card-subtitle mb-2 fst-italic">{{ post.time_created|date:"d/m/Y" }}</h6>

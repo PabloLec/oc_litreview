@@ -1,0 +1,12 @@
+.main-container {
+  background: #F5F5DC;
+  padding-bottom: 3rem;
+}
+
+.card {
+  background: #fff;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #212529;
+  border-radius: 5px;
+}

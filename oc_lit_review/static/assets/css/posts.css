@@ -17,8 +17,16 @@
 }
 
 .review-button {
+  background: #212529;
+  color: #fff;
   margin-left: 5rem;
   margin-right: 5rem;
+}
+
+.review-button:hover,
+.review-button:active {
+  background: #932432;
+  transform: translateY(1px);
 }
 
 .form-textfield {
@@ -27,11 +35,20 @@
 
 .btn-post-action {
   border-radius: 2em;
-  margin-left: 1rem;
   margin-right: 1rem;
 }
 
 .post-action-container {
   width: 100%;
   text-align: right;
+}
+
+.review-icon {
+  text-align: center;
+  color: #3C1874;
+}
+
+.ticket-icon {
+  text-align: center;
+  color: #DE354C;
 }

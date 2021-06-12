@@ -1,9 +1,11 @@
-<div class="modal fade modal-signup" role="dialog" tabindex="-1" id="modal-signup">
+<div class="modal fade modal-login" role="dialog" tabindex="-1" id="modal-signup">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form method="post" id="register" action="/signup">
         {% csrf_token %}
-        <h2 class="text-center"><strong>Créer</strong> un compte.</h2>
+        <div class="illustration">
+          <i class="fas fa-user-plus"></i>
+        </div>
         {% for field in register_form %}
           <div class="mb-3">
             {{ field }}

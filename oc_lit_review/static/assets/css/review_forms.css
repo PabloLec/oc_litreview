@@ -45,7 +45,7 @@
 }
 
 .modal-review form .btn-primary {
-  background: #f4476b;
+  background: #212529;
   border: none;
   border-radius: 4px;
   padding: 11px;
@@ -57,7 +57,7 @@
 
 .modal-review form .btn-primary:hover,
 .register-photo form .btn-primary:active {
-  background: #eb3b60;
+  background: #932432;
 }
 
 .modal-review form .btn-primary:active {

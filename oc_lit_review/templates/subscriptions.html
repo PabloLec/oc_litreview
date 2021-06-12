@@ -14,12 +14,12 @@
     {% include "components/navbar_user.html" %}
     {% include "components/message_handler.html" %}
 
-    <div class="container">
+    <div class="main-container container">
       <div class="row">
         <div class="col-md-12">
           <div class="user-searchbar">
             <input type="text" id="search-user" />
-            <button type="button" id="subscribe" data-token='{% csrf_token %}' class="btn btn-info btn-sm">S'abonner</button>
+            <button type="button" id="subscribe" data-token='{% csrf_token %}' class="btn btn-sm btn-subscribe text-white">S'abonner</button>
           </div>
 
           {% for sub in subs %} {% if forloop.counter0|divisibleby:4 %}
