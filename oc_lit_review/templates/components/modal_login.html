@@ -20,24 +20,3 @@
     </div>
   </div>
 </div>
-<div class="modal fade modal-signup" role="dialog" tabindex="-1" id="modal-signup">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <form method="post" id="register" action="/signup">
-        {% csrf_token %}
-        <h2 class="text-center"><strong>Créer</strong> un compte.</h2>
-        {% for field in register_form %}
-        <div class="mb-3">
-          {{ field }}
-        </div>
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-        {% endfor %}
-        <div class="mb-3">
-          <button class="btn btn-primary d-block w-100" type="submit">Valider</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>

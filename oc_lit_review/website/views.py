@@ -84,7 +84,7 @@ def dashboard(request):
 
 
 @login_required(login_url="/")
-def ask_review(request, ticket_instance=None):
+def make_ticket(request, ticket_instance=None):
     if request.method == "POST":
         if ticket_instance:
             ticket_instance = Ticket.objects.get(pk=ticket_instance)
@@ -105,10 +105,8 @@ def ask_review(request, ticket_instance=None):
 
 
 @login_required(login_url="/")
-def create_review(request):
+def make_full_review(request):
     if request.method == "POST":
-
-
         form_ask = AskReviewForm(request.POST, request.FILES, prefix="ask")
         form_create = CreateReviewForm(request.POST, prefix="create")
         if form_ask.is_valid() and form_create.is_valid():
@@ -129,7 +127,7 @@ def create_review(request):
 
 
 @login_required(login_url="/")
-def reply_review(request, review_instance=None):
+def make_simple_review(request, review_instance=None):
     if request.method == "POST":
         if review_instance:
             review_instance = Review.objects.get(pk=review_instance)
@@ -146,7 +144,7 @@ def reply_review(request, review_instance=None):
             review.save()
 
             messages.info(request, "Votre critique vient d'être publiée!")
-            return redirect("dashboard")
+            return redirect(request.POST["next"], "dashboard")
 
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
     return redirect("dashboard")
@@ -195,21 +193,21 @@ def subscriptions(request):
 def get_modal_ticket(request, ticket_instance=None):
     if ticket_instance:
         ticket_instance = Ticket.objects.get(pk=ticket_instance)
-    ask_review_form = AskReviewForm(prefix="ask", instance=ticket_instance)
+    make_ticket_form = AskReviewForm(prefix="ask", instance=ticket_instance)
 
-    return render(request, 'components/modal_ticket.html', context={"ask_review_form": ask_review_form,})
-
-@login_required(login_url="/")
-def get_modal_review(request):
-    create_review_form = CreateReviewForm(prefix="create")
-    ask_review_form = AskReviewForm(prefix="ask")
-
-    return render(request, 'components/modal_review.html', context={"ask_review_form": ask_review_form,"create_review_form":create_review_form})
+    return render(request, 'components/modal_ticket.html', context={"make_ticket_form": make_ticket_form,})
 
 @login_required(login_url="/")
-def get_modal_ticket_response(request, review_instance=None):
+def get_modal_full_review(request):
+    make_full_review_form = CreateReviewForm(prefix="create")
+    make_ticket_form = AskReviewForm(prefix="ask")
+
+    return render(request, 'components/modal_full_review.html', context={"make_ticket_form": make_ticket_form,"make_full_review_form":make_full_review_form})
+
+@login_required(login_url="/")
+def get_modal_simple_review(request, review_instance=None):
     if review_instance:
         review_instance = Review.objects.get(pk=review_instance)
-    create_review_form = CreateReviewForm(prefix="create", instance=review_instance)
+    make_full_review_form = CreateReviewForm(prefix="create", instance=review_instance)
 
-    return render(request, 'components/modal_ticket_response.html', context={"create_review_form": create_review_form,})
+    return render(request, 'components/modal_simple_review.html', context={"make_full_review_form": make_full_review_form,})

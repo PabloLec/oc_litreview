@@ -1,10 +1,10 @@
-<div class="modal fade modal-review" role="dialog" tabindex="-1" id="modal-reply">
+<div class="modal fade modal-review" role="dialog" tabindex="-1" id="modal-simple-review">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <form method="post" id="review-form" action="/reply_review" enctype='multipart/form-data'>
+      <form method="post" id="form-review" action="/make_simple_review" enctype='multipart/form-data'>
         {% csrf_token %}
-        <h2 class="text-center"><strong>Répondre</strong> à un ticket.</h2>
-        {% for field in create_review_form %}
+        <h2 class="text-center"><strong>Critique</strong></h2>
+        {% for field in make_full_review_form %}
         {{ field.label }}
         <div class="mb-3">
           {{ field }}

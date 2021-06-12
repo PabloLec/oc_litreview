@@ -10,13 +10,13 @@ $("#button-ask").click(function () {
             alert("Une erreur est survenue.");
         },
         complete: function (xhr, status) {
-            $("#modal-ask").modal("show");
+            $("#modal-ticket").modal("show");
         }
     });
 });
 $("#button-create").click(function () {
   $.ajax({
-        url: "/get_modal_review",
+        url: "/get_modal_full_review",
         type: "GET",
         dataType: "html",
         success: function (data) {
@@ -33,7 +33,7 @@ $("#button-create").click(function () {
 $(".btn-reply").click(function () {
   let postID = $(this).attr("data-postid");
   $.ajax({
-        url: "/get_modal_ticket_response",
+        url: "/get_modal_simple_review",
         type: "GET",
         dataType: "html",
         success: function (data) {
@@ -44,7 +44,7 @@ $(".btn-reply").click(function () {
         },
         complete: function (xhr, status) {
             $("#form-ticket-id").val(postID);
-            $("#modal-reply").modal("show");
+            $("#modal-simple-review").modal("show");
         }
     });
 });
@@ -63,9 +63,9 @@ $(".btn-edit-ticket").click(function () {
         },
         complete: function (xhr, status) {
             let hiddenField = "<input type='hidden' name='ticket-id' value='"+postID+"'/>"
-            $("#form-ask").prepend(hiddenField)
-            $('#form-ask').attr('action', '/ask_review/'+postID);
-            $("#modal-ask").modal("show");
+            $("#form-ticket").prepend(hiddenField)
+            $('#form-ticket').attr('action', '/make_ticket/'+postID);
+            $("#modal-ticket").modal("show");
         }
     });
 });
@@ -73,7 +73,7 @@ $(".btn-edit-ticket").click(function () {
 $(".btn-edit-review").click(function () {
   let postID = $(this).attr("data-postid");
   $.ajax({
-        url: "/get_modal_ticket_response/" + postID,
+        url: "/get_modal_simple_review/" + postID,
         type: "GET",
         dataType: "html",
         success: function (data) {
@@ -84,9 +84,9 @@ $(".btn-edit-review").click(function () {
         },
         complete: function (xhr, status) {
             let hiddenField = "<input type='hidden' name='review-id' value='"+postID+"'/>"
-            $("#review-form").prepend(hiddenField)
-            $('#review-form').attr('action', '/reply_review/'+postID);
-            $("#modal-reply").modal("show");
+            $("#form-review").prepend(hiddenField)
+            $('#form-review').attr('action', '/make_simple_review/'+postID);
+            $("#modal-simple-review").modal("show");
         }
     });
 });

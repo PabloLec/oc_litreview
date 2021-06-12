@@ -16,13 +16,14 @@
         </div>
       </div>
     </div>
-    <div class="card-footer post-action-container">
-    {% if user != post.user %}
-      <button type="button" data-postid="{{ post.id }}" class="btn btn-info btn-post-action btn-sm btn-reply">Répondre</button>
-    {% else %}
-      <button type="button" data-postid="{{ post.id }}" class="btn btn-warning btn-post-action btn-sm btn-edit-ticket">Modifier</button>
-      <button type="button" data-postid="{{ post.id }}" data-type="ticket" data-token="{{ csrf_token }}" class="btn btn-danger btn-post-action btn-sm btn-delete">Supprimer</button>
-    {% endif %}
-    </div>
+  </div>
+
+  <div class="card-footer post-action-container">
+  {% if user != post.user %}
+    <button type="button" data-postid="{{ post.id }}" class="btn btn-info btn-post-action btn-sm btn-reply">Répondre</button>
+  {% else %}
+    <button type="button" data-postid="{{ post.id }}" class="btn btn-warning btn-post-action btn-sm btn-edit-ticket">Modifier</button>
+    <button type="button" data-postid="{{ post.id }}" data-type="ticket" data-token="{{ csrf_token }}" class="btn btn-danger btn-post-action btn-sm btn-delete">Supprimer</button>
+  {% endif %}
   </div>
 </div>
