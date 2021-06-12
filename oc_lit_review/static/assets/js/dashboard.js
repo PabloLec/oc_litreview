@@ -43,16 +43,16 @@ $(".btn-reply").click(function () {
             alert("Une erreur est survenue.");
         },
         complete: function (xhr, status) {
-            $("#form-ticket-id").val(ticketID);
+            $("#form-ticket-id").val(postID);
             $("#modal-reply").modal("show");
         }
     });
 });
 
-$(".btn-edit").click(function () {
+$(".btn-edit-ticket").click(function () {
   let postID = $(this).attr("data-postid");
   $.ajax({
-        url: "/get_modal_ticket/" + ticketID,
+        url: "/get_modal_ticket/" + postID,
         type: "GET",
         dataType: "html",
         success: function (data) {
@@ -62,10 +62,31 @@ $(".btn-edit").click(function () {
             alert("Une erreur est survenue.");
         },
         complete: function (xhr, status) {
-            let hiddenField = "<input type='hidden' name='ticket-id' value='"+ticketID+"'/>"
+            let hiddenField = "<input type='hidden' name='ticket-id' value='"+postID+"'/>"
             $("#form-ask").prepend(hiddenField)
-            $('#form-ask').attr('action', '/ask_review/'+ticketID);
+            $('#form-ask').attr('action', '/ask_review/'+postID);
             $("#modal-ask").modal("show");
+        }
+    });
+});
+
+$(".btn-edit-review").click(function () {
+  let postID = $(this).attr("data-postid");
+  $.ajax({
+        url: "/get_modal_ticket_response/" + postID,
+        type: "GET",
+        dataType: "html",
+        success: function (data) {
+            $("#modal-wrapper").html(data);
+        },
+        error: function (xhr, status) {
+            alert("Une erreur est survenue.");
+        },
+        complete: function (xhr, status) {
+            let hiddenField = "<input type='hidden' name='review-id' value='"+postID+"'/>"
+            $("#review-form").prepend(hiddenField)
+            $('#review-form').attr('action', '/reply_review/'+postID);
+            $("#modal-reply").modal("show");
         }
     });
 });

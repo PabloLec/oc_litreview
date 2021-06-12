@@ -107,6 +107,8 @@ def ask_review(request, ticket_instance=None):
 @login_required(login_url="/")
 def create_review(request):
     if request.method == "POST":
+
+
         form_ask = AskReviewForm(request.POST, request.FILES, prefix="ask")
         form_create = CreateReviewForm(request.POST, prefix="create")
         if form_ask.is_valid() and form_create.is_valid():
@@ -127,13 +129,20 @@ def create_review(request):
 
 
 @login_required(login_url="/")
-def reply_review(request):
+def reply_review(request, review_instance=None):
     if request.method == "POST":
-        form = CreateReviewForm(request.POST, prefix="create")
+        if review_instance:
+            review_instance = Review.objects.get(pk=review_instance)
+            if review_instance.user != request.user:
+                messages.error(request, "Une erreur s'est produite lors de votre publication.")
+                return redirect("dashboard")
+
+        form = CreateReviewForm(request.POST, prefix="create", instance=review_instance)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
-            review.ticket = Ticket.objects.get(pk=request.POST["ticket-id"])
+            if not review_instance:
+                review.ticket = Ticket.objects.get(pk=request.POST["ticket-id"])
             review.save()
 
             messages.info(request, "Votre critique vient d'être publiée!")
@@ -194,9 +203,13 @@ def get_modal_ticket(request, ticket_instance=None):
 def get_modal_review(request):
     create_review_form = CreateReviewForm(prefix="create")
     ask_review_form = AskReviewForm(prefix="ask")
+
     return render(request, 'components/modal_review.html', context={"ask_review_form": ask_review_form,"create_review_form":create_review_form})
 
 @login_required(login_url="/")
-def get_modal_ticket_response(request):
-    create_review_form = CreateReviewForm(prefix="create")
+def get_modal_ticket_response(request, review_instance=None):
+    if review_instance:
+        review_instance = Review.objects.get(pk=review_instance)
+    create_review_form = CreateReviewForm(prefix="create", instance=review_instance)
+
     return render(request, 'components/modal_ticket_response.html', context={"create_review_form": create_review_form,})

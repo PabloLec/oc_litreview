@@ -1,7 +1,7 @@
 <div class="modal fade modal-review" role="dialog" tabindex="-1" id="modal-create">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <form method="post" action="/create_review" enctype='multipart/form-data'>
+      <form method="post" id="form-create" action="/create_review" enctype='multipart/form-data'>
         {% csrf_token %}
         <h2 class="text-center"><strong>Créer</strong> une critique.</h2>
         {% for field in ask_review_form %}

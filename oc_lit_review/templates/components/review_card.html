@@ -22,5 +22,13 @@
 
   <div class="card-body">
     <p class="card-text">{{ post.body }}</p>
+
+    {% if user == post.user %}
+      <div class="card-footer post-action-container">
+        <button type="button" data-postid="{{ post.id }}" class="btn btn-warning btn-post-action btn-sm btn-edit-review">Modifier</button>
+        <button type="button" data-postid="{{ post.id }}" data-type="review" data-token="{{ csrf_token }}" class="btn btn-danger btn-post-action btn-sm btn-delete">Supprimer</button>
+      </div>
+    {% endif %}
+
   </div>
 </div>
