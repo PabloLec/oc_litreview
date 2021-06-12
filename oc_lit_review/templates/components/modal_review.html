@@ -1,0 +1,26 @@
+<div class="modal fade modal-review" role="dialog" tabindex="-1" id="modal-create">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <form method="post" action="/create_review" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <h2 class="text-center"><strong>Créer</strong> une critique.</h2>
+        {% for field in ask_review_form %}
+        {{ field.label }}
+        <div class="mb-3">
+          {{ field }}
+        </div>
+        {% endfor %}
+        <hr/>
+        {% for field in create_review_form %}
+        {{ field.label }}
+        <div class="mb-3">
+          {{ field }}
+        </div>
+        {% endfor %}
+        <div class="mb-3">
+          <button class="btn btn-primary d-block w-100" type="submit">Envoyer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -19,7 +19,7 @@
                   {% endif %}
                 </div>
                 <div class="unsubscribe">
-                  <button type="button" data-user="{{ sub.username }}" data-token='{% csrf_token %}' class="btn btn-warning btn-unsubscribe btn-sm">Se désabonner</button>
+                  <button type="button" data-user="{{ sub.username }}" data-token="{{ csrf_token }}" class="btn btn-warning btn-unsubscribe btn-sm">Se désabonner</button>
                 </div>
               </div>
             </div>

@@ -25,11 +25,13 @@
   width: 100%;
 }
 
-.btn-reply {
+.btn-post-action {
   border-radius: 2em;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-.reply-button-container {
+.post-action-container {
   width: 100%;
   text-align: center;
 }

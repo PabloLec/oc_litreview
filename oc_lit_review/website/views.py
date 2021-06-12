@@ -76,20 +76,23 @@ def logout_process(request):
 @login_required(login_url="/")
 def dashboard(request):
     feed = generate_feed(request.user)
-    ask_review_form = AskReviewForm(prefix="ask")
-    create_review_form = CreateReviewForm(prefix="create")
-
     return render(
         request,
         "dashboard.html",
-        context={"feed": feed, "ask_review_form": ask_review_form, "create_review_form": create_review_form},
+        context={"feed": feed},
     )
 
 
 @login_required(login_url="/")
-def ask_review(request):
+def ask_review(request, ticket_instance=None):
     if request.method == "POST":
-        form = AskReviewForm(request.POST, request.FILES, prefix="ask")
+        if ticket_instance:
+            ticket_instance = Ticket.objects.get(pk=ticket_instance)
+            if ticket_instance.user != request.user:
+                messages.error(request, "Une erreur s'est produite lors de votre publication.")
+                return redirect("dashboard")
+
+        form = AskReviewForm(request.POST, request.FILES, prefix="ask", instance=ticket_instance)
         if form.is_valid():
             ticket = form.save(commit=False)
             ticket.user = request.user
@@ -135,9 +138,28 @@ def reply_review(request):
 
             messages.info(request, "Votre critique vient d'être publiée!")
             return redirect("dashboard")
+
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
     return redirect("dashboard")
 
+@login_required(login_url="/")
+def delete_post(request, post_type, post_id):
+    if request.method == "POST":
+        if post_type=="ticket":
+            object_to_delete = Ticket.objects.get(pk=post_id)
+        elif post_type=="review":
+            object_to_delete = Review.objects.get(pk=post_id)
+
+        if object_to_delete.user != request.user:
+            messages.error(request, "Une erreur s'est produite lors de la suppression.")
+            return redirect("dashboard")
+
+        object_to_delete.delete()
+        messages.info(request, "Votre publication a été supprimée.")
+        return redirect("dashboard")
+
+    messages.error(request, "Une erreur s'est produite lors de la suppression.")
+    return redirect("dashboard")
 
 @login_required(login_url="/")
 def posts(request):
@@ -151,7 +173,7 @@ def posts(request):
 def subscriptions(request):
 
     if request.method == "POST":
-        messages.info(request, handle_request(request, request.user))
+        messages.info(request, handle_subscription_request(request, request.user))
 
     follows = get_follows(request.user)
     followed_users = [x.followed_user for x in follows]
@@ -159,3 +181,22 @@ def subscriptions(request):
     available_users = [x for x in User.objects.all() if x not in followed_users + [request.user]]
 
     return render(request, "subscriptions.html", context={"subs": followed_users, "users": available_users})
+
+@login_required(login_url="/")
+def get_modal_ticket(request, ticket_instance=None):
+    if ticket_instance:
+        ticket_instance = Ticket.objects.get(pk=ticket_instance)
+    ask_review_form = AskReviewForm(prefix="ask", instance=ticket_instance)
+
+    return render(request, 'components/modal_ticket.html', context={"ask_review_form": ask_review_form,})
+
+@login_required(login_url="/")
+def get_modal_review(request):
+    create_review_form = CreateReviewForm(prefix="create")
+    ask_review_form = AskReviewForm(prefix="ask")
+    return render(request, 'components/modal_review.html', context={"ask_review_form": ask_review_form,"create_review_form":create_review_form})
+
+@login_required(login_url="/")
+def get_modal_ticket_response(request):
+    create_review_form = CreateReviewForm(prefix="create")
+    return render(request, 'components/modal_ticket_response.html', context={"create_review_form": create_review_form,})

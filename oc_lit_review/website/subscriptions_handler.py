@@ -2,7 +2,7 @@ from django.conf import settings
 from website.models import UserFollows
 from django.contrib.auth.models import User
 
-def handle_request(request, user):
+def handle_subscription_request(request, user):
     if request.POST.get("add"):
         return add_follow(request.POST.get("add"), user)
     elif request.POST.get("delete"):

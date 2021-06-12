@@ -38,10 +38,9 @@ $(".btn-unsubscribe").on("click", function (event) {
   event.preventDefault();
   let user = event.target.dataset.user;
   let token = event.target.dataset.token;
-  console.log(user);
   var form = $(
     '<form action="/sub" method="post">' +
-      token +
+      '<input name="csrfmiddlewaretoken" type="hidden" value="'+token+'"/>' +
       '<input type="text" name="delete" value="' +
       user +
       '" />' +
