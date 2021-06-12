@@ -8,6 +8,7 @@
           </h4>
           <h6 class="card-subtitle mb-2">Par {{ post.user }}</h6>
           <h6 class="text-muted card-subtitle mb-2 fst-italic">{{ post.time_created|date:"d/m/Y" }}</h6>
+          <h6 class="rating-{{ post.rating }}"></h6>
           <br />
           <h5 class="card-subtitle mb-2">{{ post.headline }}</h5>
         </div>

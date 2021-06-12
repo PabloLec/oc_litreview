@@ -1,0 +1,8 @@
+$('head').append('<script src="https://kit.fontawesome.com/bcf78d03de.js" crossorigin="anonymous"></script>');
+$('head').append('<link rel="stylesheet" href="/static/assets/css/star_rating.css" />');
+$(".rating-0").append('<i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i>')
+$(".rating-1").append('<i class="fas fa-star star-full"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i>')
+$(".rating-2").append('<i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i>')
+$(".rating-3").append('<i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-empty"></i><i class="fas fa-star star-empty"></i>')
+$(".rating-4").append('<i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-empty"></i>')
+$(".rating-5").append('<i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i><i class="fas fa-star star-full"></i>')
