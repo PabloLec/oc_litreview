@@ -1,5 +1,9 @@
+body {
+  background: #f2dcb1;
+}
+
 .main-container {
-  background: #F5F5DC;
+  background: #f1f2f2;
   padding-bottom: 3rem;
 }
 

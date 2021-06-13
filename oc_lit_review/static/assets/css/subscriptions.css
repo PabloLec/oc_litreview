@@ -28,8 +28,10 @@
 .unsubscribe {
   width: 100%;
   left: 0;
-  bottom: 1rem;
+  top: 1rem;
   position: absolute;
+  text-align: right;
+  padding-right: 1rem;
 }
 
 .btn-unsubscribe {

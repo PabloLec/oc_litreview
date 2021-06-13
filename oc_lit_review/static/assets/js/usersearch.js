@@ -1,5 +1,5 @@
 const notAUserMessage = `<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-      	      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      	      <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
       	        <div class="toast-header">
       	          <img src="" class="rounded me-2" alt="" />
       	          <strong class="me-auto">Erreur</strong>
@@ -40,7 +40,9 @@ $(".btn-unsubscribe").on("click", function (event) {
   let token = event.target.dataset.token;
   var form = $(
     '<form action="/sub" method="post">' +
-      '<input name="csrfmiddlewaretoken" type="hidden" value="'+token+'"/>' +
+      '<input name="csrfmiddlewaretoken" type="hidden" value="' +
+      token +
+      '"/>' +
       '<input type="text" name="delete" value="' +
       user +
       '" />' +

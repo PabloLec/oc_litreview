@@ -27,8 +27,8 @@
 
     {% if user == post.user %}
       <div class="card-footer post-action-container">
-        <button type="button" data-postid="{{ post.id }}" class="btn btn-warning btn-post-action btn-sm btn-edit-review">Modifier</button>
-        <button type="button" data-postid="{{ post.id }}" data-type="review" data-token="{{ csrf_token }}" class="btn btn-danger btn-post-action btn-sm btn-delete">Supprimer</button>
+        <button type="button" data-postid="{{ post.id }}" class="btn btn-warning btn-post-action btn-sm btn-edit-review"><i class="fas fa-edit"></i> Modifier</button>
+        <button type="button" data-postid="{{ post.id }}" data-type="review" data-token="{{ csrf_token }}" class="btn btn-danger btn-post-action btn-sm btn-delete"><i class="fas fa-trash"></i> Supprimer</button>
       </div>
     {% endif %}
 </div>

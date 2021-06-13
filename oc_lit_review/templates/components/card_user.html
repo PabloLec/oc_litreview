@@ -15,11 +15,15 @@
                     <i class="fas fa-calendar-alt"></i>  {{ sub.date_joined|date:"d/m/Y" }}
                   </span>
                   {% if sub.profile.location %}
-                  <p class="text-muted profile-info"><i class="fas fa-compass"></i> {{ sub.profile.location }}</p>
+                  <br/>
+                  <span class="text-muted profile-info"><i class="fas fa-compass"></i> {{ sub.profile.location }}</span>
+                  {% endif %}
+                  {% if sub.profile.location %}
+                  <p class="text-muted profile-info"><i class="fas fa-user-alt"></i> {{ sub.profile.bio }}</p>
                   {% endif %}
                 </div>
                 <div class="unsubscribe">
-                  <button type="button" data-user="{{ sub.username }}" data-token="{{ csrf_token }}" class="btn btn-warning btn-unsubscribe btn-sm"><i class="fas fa-times"></i>  Se désabonner</button>
+                  <button type="button" data-user="{{ sub.username }}" data-token="{{ csrf_token }}" class="btn btn-warning btn-unsubscribe btn-sm"><i class="fas fa-user-minus"></i></button>
                 </div>
               </div>
             </div>

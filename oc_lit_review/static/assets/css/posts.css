@@ -45,10 +45,19 @@
 
 .review-icon {
   text-align: center;
-  color: #3C1874;
+  color: #3c1874;
 }
 
 .ticket-icon {
   text-align: center;
-  color: #DE354C;
+  color: #de354c;
+}
+
+.btn-edit-ticket,
+.btn-edit-review,
+.btn-delete,
+.btn-reply {
+  background: #212529;
+  border-color: #212529;
+  color: #fff;
 }
