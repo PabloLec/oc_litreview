@@ -13,3 +13,5 @@ htmlcov/
 poetry.lock
 .pytest_cache
 .idea
+node_modules/
+package-lock.json
