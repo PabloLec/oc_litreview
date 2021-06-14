@@ -172,7 +172,7 @@ def delete_post(request, post_type, post_id):
 @login_required(login_url="/")
 def posts(request):
 
-    posts = generate_user_posts(request.user)
+    posts = get_user_posts(request.user)
 
     return render(request, "posts.html", context={"posts": posts})
 

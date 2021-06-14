@@ -25,21 +25,6 @@ def get_reviews(user):
     return list(reviews)
 
 
-def generate_feed(user):
-    follows = get_follows(user)
-
-    elements = []
-    for follow in follows:
-        elements += get_tickets(follow.followed_user)
-        elements += get_reviews(follow.followed_user)
-
-    elements += generate_user_posts(user)
-
-    for ticket in get_tickets(user):
-        elements += get_ticket_responses(ticket)
-
-    return sorted(elements, key=lambda x: x.time_created, reverse=True)
-
 def get_ticket_responses(ticket):
     reviews = Review.objects.filter(ticket=ticket)
 
@@ -48,8 +33,25 @@ def get_ticket_responses(ticket):
 
     return list(reviews)
 
-def generate_user_posts(user):
+
+def get_user_posts(user):
     elements = get_tickets(user)
     elements += get_reviews(user)
 
     return sorted(elements, key=lambda x: x.time_created, reverse=True)
+
+
+def generate_feed(user):
+    follows = get_follows(user)
+
+    elements = []
+    for follow in follows:
+        elements += get_tickets(follow.followed_user)
+        elements += get_reviews(follow.followed_user)
+
+    elements += get_user_posts(user)
+
+    for ticket in get_tickets(user):
+        elements += get_ticket_responses(ticket)
+
+    return sorted(set(elements), key=lambda x: x.time_created, reverse=True)
