@@ -7,23 +7,27 @@
             <div class="text-center card-box">
               <div class="member-card pt-2 pb-2">
                 <div class="thumb-lg member-thumb mx-auto">
-                  <img src="{{ sub.profile.avatar }}" class="rounded-circle img-thumbnail" alt="profile-image" />
+                  <img src="{{ user.profile.avatar }}" class="rounded-circle img-thumbnail" alt="profile-image" />
                 </div>
                 <div class="">
-                  <h5>{{ sub.username }}</h5>
+                  <h5>{{ user.username }}</h5>
                   <span class="text-muted profile-info">
-                    <i class="fas fa-calendar-alt"></i>  {{ sub.date_joined|date:"d/m/Y" }}
+                    <i class="fas fa-calendar-alt"></i>  {{ user.date_joined|date:"d/m/Y" }}
                   </span>
-                  {% if sub.profile.location %}
+                  {% if user.profile.location %}
                   <br/>
-                  <span class="text-muted profile-info"><i class="fas fa-compass"></i> {{ sub.profile.location }}</span>
+                  <span class="text-muted profile-info"><i class="fas fa-compass"></i> {{ user.profile.location }}</span>
                   {% endif %}
-                  {% if sub.profile.location %}
-                  <p class="text-muted profile-info"><i class="fas fa-user-alt"></i> {{ sub.profile.bio }}</p>
+                  {% if user.profile.location %}
+                  <p class="text-muted profile-info"><i class="fas fa-user-alt"></i> {{ user.profile.bio }}</p>
                   {% endif %}
                 </div>
-                <div class="unsubscribe">
-                  <button type="button" data-user="{{ sub.username }}" data-token="{{ csrf_token }}" class="btn btn-warning btn-unsubscribe btn-sm"><i class="fas fa-user-minus"></i></button>
+                <div class="sub-action-container">
+                {% if user in follows %}
+                  <button type="button" data-user="{{ user.username }}" class="btn btn-warning btn-unsubscribe btn-sm"><i class="fas fa-user-minus"></i></button>
+                {% else %}
+                  <button type="button" data-user="{{ user.username }}" class="btn btn-info btn-subscribe btn-sm"><i class="fas fa-user-plus"></i></button>
+                {% endif %}
                 </div>
               </div>
             </div>

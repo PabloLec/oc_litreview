@@ -21,5 +21,5 @@ urlpatterns = [
     path("make_simple_review/<review_instance>", views.make_simple_review, name="make_simple_review"),
     path("delete_post/<post_type>/<post_id>", views.delete_post, name="delete_post"),
     path("posts", views.posts, name="posts"),
-    path("sub", views.subscriptions, name="subscriptions"),
+    path("follow", views.subscriptions, name="subscriptions"),
 ]

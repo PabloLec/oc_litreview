@@ -13,21 +13,50 @@
   <body>
     {% include "components/navbar_user.html" %}
     {% include "components/message_handler.html" %}
-
+    <div id="csrf-token" style="display:none">{{ csrf_token }}</div>
     <div class="main-container container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="user-searchbar">
-            <input type="text" id="search-user" />
-            <button type="button" id="subscribe" data-token='{% csrf_token %}' class="btn btn-sm btn-subscribe text-white">S'abonner</button>
-          </div>
 
-          {% for sub in subs %} {% if forloop.counter0|divisibleby:4 %}
-        </div>
-        <div class="row">{% endif %}{% include "components/card_user.html" %}{% endfor %}</div>
-      </div>
+    <nav>
+    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <button class="nav-link active text-muted" id="nav-follows-tab" data-bs-toggle="tab" data-bs-target="#nav-follows" type="button" role="tab" aria-controls="nav-follows" aria-selected="true">Vos abonnements</button>
+        <button class="nav-link text-muted" id="nav-followers-tab" data-bs-toggle="tab" data-bs-target="#nav-followers" type="button" role="tab" aria-controls="nav-followers" aria-selected="false">Vos abonnés</button>
     </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-follows" role="tabpanel" aria-labelledby="nav-follows-tab">
+            <div class="row">
+            <div class="user-searchbar">
+                <input type="text" id="search-user" />
+                <button type="button" id="subscribe-top-btn" class="btn btn-sm text-white">S'abonner</button>
+            </div>
+            {% for user in follows %}
+                {% if forloop.counter0|divisibleby:4 %}
+                    </div>
+                    <div class="row">
+                {% endif %}
+                {% include "components/card_user.html" %}
+            {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="nav-followers" role="tabpanel" aria-labelledby="nav-followers-tab">
+            <div class="row">
+            {% for user in followers %}
+                {% if forloop.counter0|divisibleby:4 %}
+                    </div>
+                    <div class="row">
+                {% endif %}
+                {% include "components/card_user.html" %}
+            {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
     <div id="toast-list"></div>
+
     <script>
       const availableUsers = [
         {% for user in users %}

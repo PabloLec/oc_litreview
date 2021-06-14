@@ -148,12 +148,13 @@ def make_simple_review(request, review_instance=None):
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
     return redirect("dashboard")
 
+
 @login_required(login_url="/")
 def delete_post(request, post_type, post_id):
     if request.method == "POST":
-        if post_type=="ticket":
+        if post_type == "ticket":
             object_to_delete = Ticket.objects.get(pk=post_id)
-        elif post_type=="review":
+        elif post_type == "review":
             object_to_delete = Review.objects.get(pk=post_id)
 
         if object_to_delete.user != request.user:
@@ -167,6 +168,7 @@ def delete_post(request, post_type, post_id):
     messages.error(request, "Une erreur s'est produite lors de la suppression.")
     return redirect("dashboard")
 
+
 @login_required(login_url="/")
 def posts(request):
 
@@ -177,16 +179,23 @@ def posts(request):
 
 @login_required(login_url="/")
 def subscriptions(request):
-
+    print(request.POST)
     if request.method == "POST":
+
         messages.info(request, handle_subscription_request(request, request.user))
 
     follows = get_follows(request.user)
     followed_users = [x.followed_user for x in follows]
+    followers = get_followers(request.user)
 
     available_users = [x for x in User.objects.all() if x not in followed_users + [request.user]]
 
-    return render(request, "subscriptions.html", context={"subs": followed_users, "users": available_users})
+    return render(
+        request,
+        "subscriptions.html",
+        context={"follows": followed_users, "followers": followers, "users": available_users},
+    )
+
 
 @login_required(login_url="/")
 def get_modal_ticket(request, ticket_instance=None):
@@ -194,14 +203,26 @@ def get_modal_ticket(request, ticket_instance=None):
         ticket_instance = Ticket.objects.get(pk=ticket_instance)
     make_ticket_form = AskReviewForm(prefix="ask", instance=ticket_instance)
 
-    return render(request, 'components/modal_ticket.html', context={"make_ticket_form": make_ticket_form,})
+    return render(
+        request,
+        "components/modal_ticket.html",
+        context={
+            "make_ticket_form": make_ticket_form,
+        },
+    )
+
 
 @login_required(login_url="/")
 def get_modal_full_review(request):
     make_full_review_form = CreateReviewForm(prefix="create")
     make_ticket_form = AskReviewForm(prefix="ask")
 
-    return render(request, 'components/modal_full_review.html', context={"make_ticket_form": make_ticket_form,"make_full_review_form":make_full_review_form})
+    return render(
+        request,
+        "components/modal_full_review.html",
+        context={"make_ticket_form": make_ticket_form, "make_full_review_form": make_full_review_form},
+    )
+
 
 @login_required(login_url="/")
 def get_modal_simple_review(request, review_instance=None):
@@ -209,4 +230,10 @@ def get_modal_simple_review(request, review_instance=None):
         review_instance = Review.objects.get(pk=review_instance)
     make_full_review_form = CreateReviewForm(prefix="create", instance=review_instance)
 
-    return render(request, 'components/modal_simple_review.html', context={"make_full_review_form": make_full_review_form,})
+    return render(
+        request,
+        "components/modal_simple_review.html",
+        context={
+            "make_full_review_form": make_full_review_form,
+        },
+    )

@@ -11,21 +11,24 @@ const notAUserMessage = `<div class="toast-container position-fixed bottom-0 end
 
 const lowerCaseUsers = availableUsers.map((name) => name.toLowerCase());
 
-$("#subscribe").on("click", function (event) {
+$("#subscribe-top-btn").on("click", function (event) {
   event.preventDefault();
   let inputContent = document.getElementById("search-user").value;
-  let token = event.target.dataset.token;
+  let token = document.getElementById("csrf-token").textContent;
   if (inputContent == "") {
     return;
   } else if (lowerCaseUsers.includes(inputContent.toLowerCase())) {
     var form = $(
-      '<form action="/sub" method="post">' +
+      '<form action="/follow" method="post" style="display:none">' +
+        '<input name="csrfmiddlewaretoken" type="hidden" value="' +
         token +
+        '"/>' +
         '<input type="text" name="add" value="' +
         inputContent +
         '" />' +
         "</form>"
     );
+    console.log(form);
     $("body").append(form);
     form.submit();
   } else {
@@ -34,12 +37,30 @@ $("#subscribe").on("click", function (event) {
   }
 });
 
+$(".btn-subscribe").on("click", function (event) {
+  event.preventDefault();
+  let user = event.currentTarget.dataset.user;
+  let token = document.getElementById("csrf-token").textContent;
+  var form = $(
+    '<form action="/follow" method="post" style="display:none">' +
+      '<input name="csrfmiddlewaretoken" type="hidden" value="' +
+      token +
+      '"/>' +
+      '<input type="text" name="add" value="' +
+      user +
+      '" />' +
+      "</form>"
+  );
+  $("body").append(form);
+  form.submit();
+});
+
 $(".btn-unsubscribe").on("click", function (event) {
   event.preventDefault();
-  let user = event.target.dataset.user;
-  let token = event.target.dataset.token;
+  let user = event.currentTarget.dataset.user;
+  let token = document.getElementById("csrf-token").textContent;
   var form = $(
-    '<form action="/sub" method="post">' +
+    '<form action="/follow" method="post" style="display:none">' +
       '<input name="csrfmiddlewaretoken" type="hidden" value="' +
       token +
       '"/>' +
