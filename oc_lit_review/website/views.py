@@ -1,22 +1,28 @@
 from django.conf import settings
-
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.http import JsonResponse
-from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
-from django.db.models import CharField, Value
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.core.handlers.wsgi import WSGIRequest
+
 from website.feed_generator import *
 from website.subscriptions_handler import *
 from website.forms import *
 from website.models import *
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
 
 
-def index(request):
+def index(request: WSGIRequest):
+    """Landing page view.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.user.is_authenticated:
         return redirect("dashboard")
 
@@ -25,7 +31,16 @@ def index(request):
     return render(request, "index.html", context={"register_form": register_form})
 
 
-def signup(request):
+def signup(request: WSGIRequest):
+    """Handles user registration request.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -41,7 +56,16 @@ def signup(request):
     return redirect("index")
 
 
-def is_username_available(request):
+def is_username_available(request: WSGIRequest):
+    """Checks if given username is not yet taken in existing database.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponse: Either true or false.
+    """
+
     if request.method == "POST":
         all_usernames = [x.username.lower() for x in User.objects.all()]
         if request.POST["username"].lower() in all_usernames:
@@ -50,7 +74,16 @@ def is_username_available(request):
             return HttpResponse("true")
 
 
-def login_process(request):
+def login_process(request: WSGIRequest):
+    """Handles user login and arguments validation.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method != "POST":
         return redirect("index")
 
@@ -67,13 +100,31 @@ def login_process(request):
         return redirect("index")
 
 
-def logout_process(request):
+def logout_process(request: WSGIRequest):
+    """Handles user logout process.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     logout(request)
     return redirect("index")
 
 
 @login_required(login_url="/")
-def dashboard(request):
+def dashboard(request: WSGIRequest):
+    """Logged user main page, displays posts feed.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     feed = generate_feed(request.user)
     return render(
         request,
@@ -83,7 +134,17 @@ def dashboard(request):
 
 
 @login_required(login_url="/")
-def make_ticket(request, ticket_instance=None):
+def make_ticket(request: WSGIRequest, ticket_instance: Ticket = None):
+    """Handles ticket creation request.
+
+    Args:
+        request (WSGIRequest): Received request.
+        ticket_instance (Ticket, optional): If ticket edit, ticket id to be considered. Defaults to None.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method == "POST":
         if ticket_instance:
             ticket_instance = Ticket.objects.get(pk=ticket_instance)
@@ -104,7 +165,16 @@ def make_ticket(request, ticket_instance=None):
 
 
 @login_required(login_url="/")
-def make_full_review(request):
+def make_full_review(request: WSGIRequest):
+    """Handles full (ticket + proper review) review creation.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method == "POST":
         form_ask = AskReviewForm(request.POST, request.FILES, prefix="ask")
         form_create = CreateReviewForm(request.POST, prefix="create")
@@ -126,7 +196,17 @@ def make_full_review(request):
 
 
 @login_required(login_url="/")
-def make_simple_review(request, review_instance=None):
+def make_simple_review(request: WSGIRequest, review_instance: Review = None):
+    """Handles simple (response to a ticket) review creation.
+
+    Args:
+        request (WSGIRequest): Received request.
+        review_instance (Review, optional): If review edit, review id to be considered. Defaults to None.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method == "POST":
         if review_instance:
             review_instance = Review.objects.get(pk=review_instance)
@@ -150,7 +230,18 @@ def make_simple_review(request, review_instance=None):
 
 
 @login_required(login_url="/")
-def delete_post(request, post_type, post_id):
+def delete_post(request: WSGIRequest, post_type: str, post_id: str):
+    """Handles post deletion.
+
+    Args:
+        request (WSGIRequest): Received request.
+        post_type (str): Post type (either "ticket" or "review").
+        post_id (str): Post unique id to be considered.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method == "POST":
         if post_type == "ticket":
             object_to_delete = Ticket.objects.get(pk=post_id)
@@ -170,7 +261,15 @@ def delete_post(request, post_type, post_id):
 
 
 @login_required(login_url="/")
-def posts(request):
+def posts(request: WSGIRequest):
+    """User own posts view.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
 
     posts = get_user_posts(request.user)
 
@@ -178,8 +277,16 @@ def posts(request):
 
 
 @login_required(login_url="/")
-def subscriptions(request):
-    print(request.POST)
+def subscriptions(request: WSGIRequest):
+    """User follows/followers view.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if request.method == "POST":
 
         messages.info(request, handle_subscription_request(request, request.user))
@@ -198,7 +305,17 @@ def subscriptions(request):
 
 
 @login_required(login_url="/")
-def get_modal_ticket(request, ticket_instance=None):
+def get_modal_ticket(request: WSGIRequest, ticket_instance: Ticket = None):
+    """Gets ticket creation/edit modal HTML code.
+
+    Args:
+        request (WSGIRequest): Received request.
+        ticket_instance (Ticket, optional): If ticket edit, ticket id to be considered. Defaults to None. Defaults to None.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if ticket_instance:
         ticket_instance = Ticket.objects.get(pk=ticket_instance)
     make_ticket_form = AskReviewForm(prefix="ask", instance=ticket_instance)
@@ -213,7 +330,16 @@ def get_modal_ticket(request, ticket_instance=None):
 
 
 @login_required(login_url="/")
-def get_modal_full_review(request):
+def get_modal_full_review(request: WSGIRequest):
+    """Gets full (ticket + proper review) review creation modal.
+
+    Args:
+        request (WSGIRequest): Received request.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     make_full_review_form = CreateReviewForm(prefix="create")
     make_ticket_form = AskReviewForm(prefix="ask")
 
@@ -225,7 +351,17 @@ def get_modal_full_review(request):
 
 
 @login_required(login_url="/")
-def get_modal_simple_review(request, review_instance=None):
+def get_modal_simple_review(request: WSGIRequest, review_instance: Review = None):
+    """Gets simple (response to a ticket) review creation modal.
+
+    Args:
+        request (WSGIRequest): Received request.
+        review_instance (Review, optional): If review edit, review id to be considered. Defaults to None. Defaults to None. Defaults to None.
+
+    Returns:
+        HttpResponseRedirect: Request response.
+    """
+
     if review_instance:
         review_instance = Review.objects.get(pk=review_instance)
     make_full_review_form = CreateReviewForm(prefix="create", instance=review_instance)

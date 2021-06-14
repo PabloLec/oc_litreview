@@ -32,21 +32,11 @@ module.exports = function (grunt) {
         dest: "oc_lit_review/static/assets/css/min/common.min.css",
       },
     },
-    watch: {
-      scripts: {
-        files: ["src/js/*.js", "src/css/*.css"],
-        tasks: ["concat", "uglify", "cssmin"],
-        options: {
-          spawn: false,
-        },
-      },
-    },
   });
 
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
-  grunt.loadNpmTasks("grunt-contrib-watch");
 
   grunt.registerTask("default", ["concat", "uglify", "cssmin"]);
 };

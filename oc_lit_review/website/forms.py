@@ -6,11 +6,15 @@ from website.models import Ticket, Review
 
 
 class RegisterForm(UserCreationForm):
+    """User registration form."""
+
     class Meta:
         model = User
         fields = ["username", "password1", "password2"]
 
     def __init__(self, *args, **kwargs):
+        """Overloads UserCreationForm with fields details."""
+
         super().__init__(*args, **kwargs)
         self.fields["username"].widget = forms.TextInput(
             attrs={
@@ -35,14 +39,10 @@ class RegisterForm(UserCreationForm):
             }
         )
 
-    def clean(self):
-        cd = self.cleaned_data
-        if cd.get("password1") != cd.get("password2"):
-            self.add_error("password2", "passwords do not match !")
-        return cd
-
 
 class AskReviewForm(ModelForm):
+    """Ticket creation form."""
+
     class Meta:
         model = Ticket
         labels = {"title": "Titre", "description": "Description", "image": "Couverture"}
@@ -54,6 +54,8 @@ class AskReviewForm(ModelForm):
 
 
 class CreateReviewForm(ModelForm):
+    """Review creation form."""
+
     class Meta:
         model = Review
         labels = {"headline": "Résumé", "rating": "Note", "body": "Contenu"}
