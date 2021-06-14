@@ -29,10 +29,6 @@
   transform: translateY(1px);
 }
 
-.form-textfield {
-  width: 100%;
-}
-
 .btn-post-action {
   border-radius: 2em;
   margin-right: 1rem;

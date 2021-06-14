@@ -61,6 +61,7 @@ class CreateReviewForm(ModelForm):
         labels = {"headline": "Résumé", "rating": "Note", "body": "Contenu"}
         widgets = {
             "headline": forms.TextInput(attrs={"class": "form-textfield"}),
+            "rating": forms.NumberInput(attrs={"min": 0, "max": 5, "class": "form-ratingfield"}),
             "body": forms.Textarea(attrs={"class": "form-textfield"}),
         }
         fields = ["headline", "rating", "body"]

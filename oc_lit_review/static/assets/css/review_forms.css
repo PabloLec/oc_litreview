@@ -72,3 +72,11 @@
   opacity: 0.9;
   text-decoration: none;
 }
+
+.form-textfield {
+  width: 100%;
+}
+
+.form-ratingfield {
+  width: 3rem;
+}
