@@ -2,7 +2,7 @@
     "name": "oc_lit_review",
     "version": "0.1.0",
     "devDependencies": {
-        "grunt": "~1.4.0",
+        "grunt": "^1.4.1",
         "grunt-contrib-concat": "^1.0.1",
         "grunt-contrib-cssmin": "^4.0.0",
         "grunt-contrib-uglify": "^5.0.1",

@@ -5,8 +5,8 @@
   <head>
     <title>LIT Review</title>
     {% include "static_load/common_head.html" %}
-    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/index_form.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/min/index.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/min/index_form.min.css' %}" />
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
   </head>
 
@@ -32,6 +32,6 @@
 
     {% include "components/modal_login.html" %}
     {% include "components/modal_signup.html" %}
-    <script src="{% static 'assets/js/index.js' %}"></script>
+    <script src="{% static 'assets/js/min/index.min.js' %}"></script>
   </body>
 </html>

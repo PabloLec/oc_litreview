@@ -5,8 +5,8 @@
   <head>
     <title>LIT Review</title>
     {% include "static_load/common_head.html" %}
-    <link rel="stylesheet" href="{% static 'assets/css/posts.css' %}" />
-    <link rel="stylesheet" href="{% static 'assets/css/review_forms.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/min/posts.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/min/review_forms.min.css' %}" />
   </head>
 
   <body>
@@ -16,12 +16,17 @@
     <div class="main-container container">
       <div class="row">
         <div class="col-md-12">
-          {% for post in posts %} {% if post.type == 'review' %} {% include "components/card_review.html" %} {% else %}
-          {% include "components/card_ticket.html" %}{% endif %} {% endfor %}
+          {% for post in posts %} 
+          	{% if post.type == 'review' %} 
+          		{% include "components/card_review.html" %} 
+          	{% else %}
+          		{% include "components/card_ticket.html" %}
+          	{% endif %} 
+          {% endfor %}
         </div>
       </div>
     </div>
     <div id="modal-wrapper"></div>
-    <script src="{% static 'assets/js/post_actions.js' %}"></script>
+    <script src="{% static 'assets/js/min/post_actions.min.js' %}"></script>
   </body>
 </html>
