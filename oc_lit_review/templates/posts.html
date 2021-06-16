@@ -14,6 +14,9 @@
     {% include "components/message_handler.html" %}
 
     <div class="main-container container">
+      {% if posts|length == 0 %}
+            <p class="empty-feed-message">Vous n'avez encore rien publié.</p>
+      {% endif %}
       <div class="row">
         <div class="col-md-12">
           {% for post in posts %} 

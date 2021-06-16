@@ -20,6 +20,9 @@
                 <button type="button" class="btn review-button text-white" id="button-create">Créer une critique</button>
             </div>
         </div>
+        {% if feed|length == 0 %}
+            <p class="empty-feed-message">Votre flux d'actualité est vide.<br/>Commencez par vous abonner à d'autres utilisateurs.</p>
+        {% endif %}
       <div class="row">
         <div class="col-md-12">
           {% for post in feed %}

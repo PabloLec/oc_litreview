@@ -18,8 +18,8 @@
                   <br/>
                   <span class="text-muted profile-info"><i class="fas fa-compass"></i> {{ user.profile.location }}</span>
                   {% endif %}
-                  {% if user.profile.location %}
-                  <p class="text-muted profile-info"><i class="fas fa-user-alt"></i> {{ user.profile.bio }}</p>
+                  {% if user.profile.bio %}
+                  <p class="text-muted profile-info"><i class="fas fa-user-alt"></i> {{ user.profile.bio|truncatechars:75 }}</p>
                   {% endif %}
                 </div>
                 <div class="sub-action-container">

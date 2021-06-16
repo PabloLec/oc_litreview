@@ -2,7 +2,7 @@
 
 :books: Made for an [OpenClassrooms](https://openclassrooms.com) studies project.
 
-`oc_lit_review ` is a Django-based book review platform.
+`oc_lit_review` is a Django-based book review platform.
 Fot this project, the repository covers Django backend, and minimal platform features/design.
 
 # Setup

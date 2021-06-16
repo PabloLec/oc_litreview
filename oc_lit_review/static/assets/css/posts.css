@@ -2,6 +2,12 @@
   margin-top: 2rem;
 }
 
+.empty-feed-message {
+  padding-top: 5rem;
+  width: 100%;
+  text-align: center;
+}
+
 .bookcover img {
   max-width: 10rem; /* you can use % */
   height: auto;

@@ -223,7 +223,7 @@ def make_simple_review(request: WSGIRequest, review_instance: Review = None):
             review.save()
 
             messages.info(request, "Votre critique vient d'être publiée!")
-            return redirect(request.POST["next"], "dashboard")
+            return redirect("dashboard")
 
     messages.error(request, "Une erreur s'est produite lors de votre publication.")
     return redirect("dashboard")
