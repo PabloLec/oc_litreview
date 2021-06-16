@@ -49,7 +49,7 @@ def signup(request: WSGIRequest):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            messages.info(request, "Bienvenue sur LIT Review!")
+            messages.info(request, "Bienvenue sur LITReview !")
             return redirect("dashboard")
 
     messages.error(request, "Une erreur s'est produite lors de votre inscription.")
