@@ -9,9 +9,9 @@
 
 This project was aimed to be a minimal functional prototype. This repository covers Django backend and basic frontend features.
 
-In its current state, the platform allows a user to sign up and log in.
-A user can then create a ticket (A book review demand), respond to a ticket with a review or just post a review with a form combining ticket and review creation.
-A user also have the ability to follow other users, thereby their tickets and reviews will appear in user dashboard feed.
+In its current state, the platform allows a user to sign up and log in.  
+A user can then create a ticket (A book review demand), respond to a ticket with a review or just post a review with a form combining ticket and review creation.  
+A user also have the ability to follow other users, thereby their tickets and reviews will appear in user dashboard feed.  
 In the latter, reviews in respond to user tickets made by other users he does not follow will also be displayed.
 
 # Setup
